@@ -4,7 +4,6 @@ import { PixiPlugin } from "gsap/PixiPlugin";
 import { Loader } from "./Loader";
 import { ScenesManager } from "./ScenesManager";
 import * as Matter from "matter-js";
-import {StartButton} from "../StartButton";
 
 class Application {
     run(config) {
@@ -20,9 +19,7 @@ class Application {
         this.app.stage.interactive = true;
         this.app.stage.addChild(this.scenes.container);
         this.loader = new Loader(this.app.loader, this.config);
-        this.loader.preload().then(() => {
-            this.start();
-        });
+        this.loader.preload().then(() => this.start());
         this.createPhysics()
     }
 

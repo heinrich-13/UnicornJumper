@@ -1,5 +1,5 @@
 import * as PIXI from "pixi.js";
-import {App} from "../system/App";
+import { App } from "../system/App";
 
 export class Background {
     constructor() {
@@ -7,6 +7,7 @@ export class Background {
         this.container = new PIXI.Container();
         this.createSprites();
     }
+
     createSprites() {
         this.sprites = [];
 
@@ -32,7 +33,7 @@ export class Background {
         if (spriteRightX <= screenLeftX) {
             sprite.x += sprite.width * this.sprites.length;
         }
-
+        
         sprite.x -= offset;
     }
 

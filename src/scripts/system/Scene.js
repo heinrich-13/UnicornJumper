@@ -1,5 +1,6 @@
 import * as PIXI from "pixi.js";
 import { App } from "./App";
+import * as Matter from "matter-js";
 
 export class Scene {
     constructor() {
@@ -9,12 +10,7 @@ export class Scene {
         App.app.ticker.add(this.update, this);
     }
 
-    create() {}
     update() {}
-    destroy() {}
-
-    remove() {
-        App.app.ticker.remove(this.update, this);
-        this.destroy();
+    destroy() {
     }
 }

@@ -41,7 +41,7 @@ export const Config = {
     },
     score: {
         x: 10,
-        y: 10,
+        y: 50,
         anchor: 0,
         style: {
             fontFamily: "Verdana",
@@ -50,4 +50,11 @@ export const Config = {
             fill: ["pink"]
         }
     },
+    startButton: {
+        x: 10,
+        y: 10,
+        anchor: 0,
+        buttonMode: true,
+        interactive: true
+    }
 };

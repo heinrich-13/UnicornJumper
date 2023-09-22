@@ -16,4 +16,9 @@ export class ScenesManager {
         this.scene = new App.config.scenes[scene]();
         this.container.addChild(this.scene.container);
     }
+    update(dt) {
+        if (this.scene && this.scene.update) {
+            this.scene.update(dt);
+        }
+    }
 }

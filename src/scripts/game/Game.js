@@ -5,6 +5,7 @@ import {Platforms} from "./Platforms";
 import {App} from "../system/App";
 import * as Matter from "matter-js";
 import {LabelScore} from "./LableScore";
+import {StartButton} from "../StartButton";
 
 export class Game extends Scene {
     create() {
@@ -66,9 +67,16 @@ export class Game extends Scene {
             }
         }
     }
+
+    addStartButton() {
+        this.startButton = new StartButton();
+        this.container.addChild(this.startButton);
+    }
+
     createUI() {
         this.labelScore = new LabelScore();
         this.container.addChild(this.labelScore);
+        this.addStartButton();
         this.hero.sprite.on("score", () => {
             this.labelScore.renderScore(this.hero.score);
         });

@@ -6,24 +6,12 @@ export class Platforms {
     constructor() {
         this.platforms = [];
         this.container = new PIXI.Container();
+
         this.createPlatform({
             rows: 4,
             cols: 6,
             x: 200
         });
-    }
-    createPlatform(data) {
-        const platform = new Platform(data.rows, data.cols, data.x);
-        this.container.addChild(platform.container);
-        this.platforms.push(platform);
-        this.current = platform;
-    }
-
-    update() {
-        if (this.current.container.x + this.current.container.width < window.innerWidth) {
-            this.createPlatform(this.randomData);
-        }
-        this.platforms.forEach(platform => platform.move());
     }
 
     get randomData() {
@@ -37,6 +25,22 @@ export class Platforms {
         data.rows = this.ranges.rows.min + Math.round(Math.random() * (this.ranges.rows.max - this.ranges.rows.min));
 
         return data;
+    }
+
+
+    createPlatform(data) {
+        const platform = new Platform(data.rows, data.cols, data.x);
+        this.container.addChild(platform.container);
+        this.platforms.push(platform);
+        this.current = platform;
+    }
+
+    update() {
+        if (this.current.container.x + this.current.container.width < window.innerWidth) {
+            this.createPlatform(this.randomData);
+        }
+
+        this.platforms.forEach(platform => platform.move());
     }
 
     destroy() {

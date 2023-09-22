@@ -1,22 +1,29 @@
-import { Game } from "./Game";
 import { Tools } from "../system/Tools";
+import { GameScene } from "./GameScene";
 
 export const Config = {
-    bgSpeed: 2,
-    hero: {
-        position: {
-            x: 350,
-            y: 640
-        },
-        jumpSpeed: 10,
-        maxJumps: 2,
-    },
     loader: Tools.massiveRequire(require["context"]('./../../sprites/', true, /\.(mp3|png|jpe?g)$/)),
-    scenes: {
-        "Game": Game
+    bgSpeed: 2,
+    score: {
+        x: 10,
+        y: 50,
+        anchor: 0,
+        style: {
+            fontFamily: "Comic Sans MS",
+            fontWeight: "bold",
+            fontSize: 60,
+            fill: ["pink"]
+        }
+    },
+    rewardItems: {
+        chance: 0.4,
+        offset: {
+            min: 100,
+            max: 200
+        }
     },
     platforms: {
-        moveSpeed: -2,
+        moveSpeed: -1.5,
         ranges: {
             rows: {
                 min: 2,
@@ -30,24 +37,24 @@ export const Config = {
                 min: 60,
                 max: 200
             }
-        },
-    },
-    rewardItems: {
-        chance: 0.4,
-        offset: {
-            min: 100,
-            max: 200
         }
     },
-    score: {
+    hero: {
+        jumpSpeed: 10,
+        maxJumps: 2,
+        position: {
+            x: 350,
+            y: 640
+        }
+    },
+    scenes: {
+        "Game": GameScene
+    },
+    startButton: {
         x: 10,
         y: 10,
         anchor: 0,
-        style: {
-            fontFamily: "Verdana",
-            fontWeight: "bold",
-            fontSize: 44,
-            fill: ["pink"]
-        }
+        buttonMode: true,
+        interactive: true
     },
 };

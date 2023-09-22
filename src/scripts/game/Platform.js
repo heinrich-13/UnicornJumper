@@ -1,29 +1,47 @@
+import * as Matter from 'matter-js';
 import * as PIXI from "pixi.js";
 import { App } from '../system/App';
-import * as Matter from "matter-js";
-import {RewardItem} from "./RewardItem";
+import { RewardItem } from './RewardItem';
 
 export class Platform {
     constructor(rows, cols, x) {
+        this.rewardItems = [];
+
         this.rows = rows;
         this.cols = cols;
+
         this.tileSize = PIXI.Texture.from("tile").width;
         this.width = this.tileSize * this.cols;
         this.height = this.tileSize * this.rows;
+
         this.createContainer(x);
         this.createTiles();
+
         this.dx = App.config.platforms.moveSpeed;
         this.createBody();
-        this.rewardItems = [];
         this.createRewardItems();
     }
 
+    createRewardItems() {
+        const y = App.config.rewardItems.offset.min + Math.random() * (App.config.rewardItems.offset.max - App.config.rewardItems.offset.min);
+
+        for (let i = 0; i < this.cols; i++) {
+            if (Math.random() < App.config.rewardItems.chance) {
+                this.createDiamond(this.tileSize * i, -y);
+            }
+        }
+    }
+
+    createDiamond(x, y) {
+            const rewardItem = new RewardItem(x, y);
+            this.container.addChild(rewardItem.sprite);
+            rewardItem.createBody();
+            this.rewardItems.push(rewardItem);
+    }
+
     createBody() {
-        // create a physical body
         this.body = Matter.Bodies.rectangle(this.width / 2 + this.container.x, this.height / 2 + this.container.y, this.width, this.height, {friction: 0, isStatic: true});
-        // add the created body to the engine
         Matter.World.add(App.physics.world, this.body);
-        // save a reference to the platform object itself for further access from the physical body object
         this.body.gamePlatform = this;
     }
 
@@ -32,6 +50,7 @@ export class Platform {
         this.container.x = x;
         this.container.y = window.innerHeight - this.height;
     }
+
     createTiles() {
         for (let row = 0; row < this.rows; row++) {
             for (let col = 0; col < this.cols; col++) {
@@ -54,23 +73,6 @@ export class Platform {
             this.container.x = this.body.position.x - this.width / 2;
             this.container.y = this.body.position.y - this.height / 2;
         }
-    }
-
-    createRewardItems() {
-        const y = App.config.rewardItems.offset.min + Math.random() * (App.config.rewardItems.offset.max - App.config.rewardItems.offset.min);
-
-        for (let i = 0; i < this.cols; i++) {
-            if (Math.random() < App.config.rewardItems.chance) {
-                this.createRewardItem(this.tileSize * i, -y);
-            }
-        }
-    }
-
-    createRewardItem(x, y) {
-        const rewardItem = new RewardItem(x, y);
-        this.container.addChild(rewardItem.sprite);
-        rewardItem.createBody();
-        this.rewardItems.push(rewardItem);
     }
 
     destroy() {

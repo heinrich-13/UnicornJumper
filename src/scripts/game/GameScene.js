@@ -5,7 +5,7 @@ import { Background } from "./Background";
 import { Scene } from '../system/Scene';
 import { Hero } from "./Hero";
 import { Platforms } from "./Platforms";
-import {StartButton} from "./StartButton";
+import {StartButton, RestartButton} from "./StartButton";
 
 export class GameScene extends Scene {
     create() {
@@ -22,10 +22,15 @@ export class GameScene extends Scene {
         this.container.addChild(this.startButton);
     }
 
+    addRestartButton() {
+        this.restartButton = new RestartButton();
+        this.container.addChild(this.restartButton);
+    }
     createUI() {
         this.labelScore = new LabelScore();
         this.container.addChild(this.labelScore);
         this.addStartButton();
+        this.addRestartButton();
         this.hero.sprite.on("score", () => {
             this.labelScore.renderScore(this.hero.score);
         });

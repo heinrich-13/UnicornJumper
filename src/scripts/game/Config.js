@@ -6,7 +6,7 @@ export const Config = {
     bgSpeed: 2,
     score: {
         x: 10,
-        y: 50,
+        y: 70,
         anchor: 0,
         style: {
             fontFamily: "Comic Sans MS",
@@ -57,4 +57,11 @@ export const Config = {
         buttonMode: true,
         interactive: true
     },
+    restartButton: {
+        x: 10,
+        y: 45,
+        anchor: 0,
+        buttonMode: true,
+        interactive: true
+    }
 };
